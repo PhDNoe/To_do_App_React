@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { FormEvent, ChangeEvent } from "react";
 
@@ -6,7 +5,7 @@ interface Props {
     onSubmit: (todo: { id: number; text: string }) => void;
 }
 
-function TodoForm(props: Props) {
+function TodoForm({ onSubmit }: Props) {
     const [input, setInput] = useState("");
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -15,10 +14,10 @@ function TodoForm(props: Props) {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        // props.onSubmit({
-        //     id: Math.floor(Math.random() * 10000),
-        //     text: input,
-        // });
+        onSubmit({
+            id: Math.floor(Math.random() * 10000),
+            text: input,
+        });
         setInput("");
     };
 
