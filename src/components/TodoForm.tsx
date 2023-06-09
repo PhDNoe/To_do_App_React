@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FormEvent, ChangeEvent } from "react";
 
 interface Props {
@@ -7,6 +7,14 @@ interface Props {
 
 function TodoForm({ onSubmit }: Props) {
     const [input, setInput] = useState("");
+
+    const inputRef = useRef<HTMLInputElement | null>(null);
+
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, []);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setInput(e.target.value);
@@ -17,7 +25,7 @@ function TodoForm({ onSubmit }: Props) {
         onSubmit({
             id: Math.floor(Math.random() * 10000),
             text: input,
-            isComplete: false
+            isComplete: false,
         });
         setInput("");
     };
@@ -31,6 +39,7 @@ function TodoForm({ onSubmit }: Props) {
                 name="text"
                 className="todo-input"
                 onChange={handleChange}
+                ref={inputRef}
             />
             <button className="todo-button">Add todo</button>
         </form>
