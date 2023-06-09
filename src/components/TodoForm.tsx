@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FormEvent, ChangeEvent } from "react";
 
 interface Props {
-    onSubmit: (todo: { id: number; text: string }) => void;
+    onSubmit: (todo: { id: number; text: string; isComplete: boolean }) => void;
 }
 
 function TodoForm({ onSubmit }: Props) {
@@ -17,6 +17,7 @@ function TodoForm({ onSubmit }: Props) {
         onSubmit({
             id: Math.floor(Math.random() * 10000),
             text: input,
+            isComplete: false
         });
         setInput("");
     };
